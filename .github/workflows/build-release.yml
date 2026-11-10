@@ -1,0 +1,88 @@
+name: Build SMSM Ready Bundle
+
+on:
+  workflow_dispatch:
+    inputs:
+      source_ref:
+        description: "SMSM source branch or tag to build"
+        required: true
+        default: "feature/smsm-owner-auth"
+        type: string
+
+permissions:
+  contents: write
+
+concurrency:
+  group: km-build-bundle
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout km repository
+        uses: actions/checkout@v4
+
+      - name: Checkout SMSM source
+        uses: actions/checkout@v4
+        with:
+          repository: Abbas2487248/smsm
+          ref: ${{ inputs.source_ref }}
+          path: source
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y protobuf-compiler
+
+      - name: Install Node.js 20
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install Rust stable
+        run: |
+          curl --fail --silent --show-error https://sh.rustup.rs | sh -s -- -y --profile minimal --default-toolchain stable
+          echo "$HOME/.cargo/bin" >> "$GITHUB_PATH"
+
+      - name: Build static web interface
+        working-directory: source
+        run: |
+          npm ci
+          SMSM_STATIC=1 npm run build
+
+      - name: Build SMSM binaries
+        working-directory: source
+        run: cargo build --release --bin sshx-server --bin sshx
+
+      - name: Package runtime bundle
+        id: package
+        run: |
+          set -euo pipefail
+          PACKAGE_DIR="$RUNNER_TEMP/smsm-package"
+          mkdir -p "$PACKAGE_DIR/bin"
+          install -m 0755 source/target/release/sshx-server "$PACKAGE_DIR/bin/sshx-server"
+          install -m 0755 source/target/release/sshx "$PACKAGE_DIR/bin/sshx"
+          cp -a source/build "$PACKAGE_DIR/build"
+          cp source/LICENSE "$PACKAGE_DIR/LICENSE"
+          tar -czf "$RUNNER_TEMP/smsm-linux-x86_64.tar.gz" -C "$PACKAGE_DIR" .
+          (
+            cd "$RUNNER_TEMP"
+            sha256sum smsm-linux-x86_64.tar.gz > SHA256SUMS
+          )
+          echo "asset=$RUNNER_TEMP/smsm-linux-x86_64.tar.gz" >> "$GITHUB_OUTPUT"
+          echo "checksum=$RUNNER_TEMP/SHA256SUMS" >> "$GITHUB_OUTPUT"
+
+      - name: Publish versioned release bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          TAG="bundle-${GITHUB_RUN_NUMBER}-${GITHUB_RUN_ATTEMPT}"
+          gh release create "$TAG" \
+            "$RUNNER_TEMP/smsm-linux-x86_64.tar.gz" \
+            "$RUNNER_TEMP/SHA256SUMS" \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "SMSM runtime bundle $TAG" \
+            --notes "Prebuilt Linux x86_64 SMSM server, SSHX client, and static web assets. Source: Abbas2487248/smsm ref ${{ inputs.source_ref }}."
+          echo "Published bundle tag: $TAG" >> "$GITHUB_STEP_SUMMARY"
