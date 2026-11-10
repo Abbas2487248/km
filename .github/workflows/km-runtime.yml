@@ -1,0 +1,160 @@
+name: KM SMSM Runtime
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: km-smsm-runtime
+  cancel-in-progress: true
+
+jobs:
+  run-smsm:
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    steps:
+      - name: Download latest prebuilt SMSM bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          mkdir -p "$RUNNER_TEMP/km-release" "$RUNNER_TEMP/smsm"
+          gh release download --repo "$GITHUB_REPOSITORY" \
+            --pattern "smsm-linux-x86_64.tar.gz" \
+            --pattern "SHA256SUMS" \
+            --dir "$RUNNER_TEMP/km-release"
+          cd "$RUNNER_TEMP/km-release"
+          sha256sum --check SHA256SUMS
+          tar -xzf smsm-linux-x86_64.tar.gz -C "$RUNNER_TEMP/smsm"
+          test -x "$RUNNER_TEMP/smsm/bin/sshx-server"
+          test -x "$RUNNER_TEMP/smsm/bin/sshx"
+          test -f "$RUNNER_TEMP/smsm/build/spa.html"
+
+      - name: Install Cloudflare Tunnel
+        run: |
+          set -euo pipefail
+          sudo mkdir -p --mode=0755 /usr/share/keyrings
+          curl --fail --silent --show-error --location https://pkg.cloudflare.com/cloudflare-main.gpg |
+            sudo tee /usr/share/keyrings/cloudflare-main.gpg >/dev/null
+          echo 'deb [signed-by=/usr/share/keyrings/cloudflare-main.gpg] https://pkg.cloudflare.com/cloudflared any main' |
+            sudo tee /etc/apt/sources.list.d/cloudflared.list >/dev/null
+          sudo apt-get update
+          sudo apt-get install -y cloudflared
+          cloudflared --version
+
+      - name: Start public Cloudflare Quick Tunnel
+        run: |
+          set -euo pipefail
+          touch "$RUNNER_TEMP/cloudflared.log"
+          cloudflared tunnel --no-autoupdate --url http://127.0.0.1:8051 --logfile "$RUNNER_TEMP/cloudflared.log" &
+          echo $! > "$RUNNER_TEMP/cloudflared.pid"
+
+          PUBLIC_URL=""
+          for i in $(seq 1 60); do
+            PUBLIC_URL="$(grep -Eo 'https://[a-zA-Z0-9-]+\.trycloudflare\.com' "$RUNNER_TEMP/cloudflared.log" | head -n 1 || true)"
+            if [ -n "$PUBLIC_URL" ]; then
+              echo "SMSM_PUBLIC_URL=$PUBLIC_URL" >> "$GITHUB_ENV"
+              break
+            fi
+            sleep 2
+          done
+
+          if [ -z "$PUBLIC_URL" ]; then
+            cat "$RUNNER_TEMP/cloudflared.log"
+            echo "::error::Could not obtain the Cloudflare Quick Tunnel URL."
+            exit 1
+          fi
+
+      - name: Start SMSM server
+        env:
+          SMSM_OWNER_PASSWORD: ${{ secrets.SMSM_OWNER_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [ -z "${SMSM_OWNER_PASSWORD:-}" ]; then
+            echo "::error::Add SMSM_OWNER_PASSWORD to km repository Actions secrets."
+            exit 1
+          fi
+
+          APP_DIR="$RUNNER_TEMP/smsm"
+          mkdir -p "$GITHUB_WORKSPACE/uploads"
+          export PORT=8051
+          export SSHX_SECRET="$(openssl rand -hex 32)"
+          export SMSM_UPLOAD_DIR="$GITHUB_WORKSPACE/uploads"
+          (
+            cd "$APP_DIR"
+            nohup ./bin/sshx-server \
+              --listen 0.0.0.0 \
+              --port 8051 \
+              --override-origin "$SMSM_PUBLIC_URL" \
+              > "$RUNNER_TEMP/smsm-server.log" 2>&1 &
+            echo $! > "$RUNNER_TEMP/smsm-server.pid"
+          )
+
+          READY=0
+          for i in $(seq 1 30); do
+            if curl -fsS --user "owner:$SMSM_OWNER_PASSWORD" "$SMSM_PUBLIC_URL/" -o /dev/null; then
+              echo "SMSM server is responding at $SMSM_PUBLIC_URL"
+              READY=1
+              break
+            fi
+            sleep 2
+          done
+
+          if [ "$READY" -ne 1 ]; then
+            cat "$RUNNER_TEMP/smsm-server.log"
+            echo "::error::SMSM did not become ready."
+            exit 1
+          fi
+
+      - name: Create SSHX client session
+        run: |
+          set -euo pipefail
+          (
+            cd "$RUNNER_TEMP/smsm"
+            nohup ./bin/sshx --server "http://127.0.0.1:8051" --quiet \
+              > "$RUNNER_TEMP/sshx-client.log" 2>&1 &
+            echo $! > "$RUNNER_TEMP/sshx-client.pid"
+          )
+
+          CLIENT_URL=""
+          for i in $(seq 1 45); do
+            CLIENT_URL="$(grep -Eo 'https://[^[:space:]]+' "$RUNNER_TEMP/sshx-client.log" | tail -n 1 | sed 's/\x1b\[[0-9;]*m//g' || true)"
+            if [[ "$CLIENT_URL" == *"/s/"* && "$CLIENT_URL" == *"#"* ]]; then
+              break
+            fi
+            if ! kill -0 "$(cat "$RUNNER_TEMP/sshx-client.pid")" 2>/dev/null; then
+              break
+            fi
+            sleep 2
+          done
+
+          if [ -z "$CLIENT_URL" ]; then
+            cat "$RUNNER_TEMP/sshx-client.log"
+            echo "::error::Could not create the SSHX client session."
+            exit 1
+          fi
+
+          {
+            echo "## SMSM is running from a prebuilt bundle"
+            echo
+            echo "Web interface: $SMSM_PUBLIC_URL"
+            echo
+            echo "Browser username: owner"
+            echo "Browser password: SMSM_OWNER_PASSWORD repository secret"
+            echo
+            echo "## SSHX client session"
+            echo
+            echo "$CLIENT_URL"
+            echo
+            echo "Anyone with the client link may access that session."
+            echo
+            echo "This temporary runner stops when the workflow ends (up to 350 minutes)."
+          } >> "$GITHUB_STEP_SUMMARY"
+          echo "SMSM and SSHX client session started successfully."
+
+      - name: Keep SMSM online
+        run: |
+          echo "SMSM is available at: $SMSM_PUBLIC_URL"
+          sleep 21000
