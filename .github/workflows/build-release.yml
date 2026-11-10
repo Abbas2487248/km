@@ -29,6 +29,7 @@ jobs:
         with:
           repository: Abbas2487248/smsm
           ref: ${{ inputs.source_ref }}
+          token: ${{ secrets.SMSM_SOURCE_TOKEN }}
           path: source
 
       - name: Install system dependencies
