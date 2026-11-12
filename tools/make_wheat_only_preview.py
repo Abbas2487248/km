@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Create wheat-only preview copies of Hay Day recipe CSVs.
+"""Create wheat-only preview copies of Hay Day production-machine recipe CSVs.
 
 This script does NOT edit source CSVs. It reads data/*_goods.csv and writes
 transformed copies under wheat_only_preview/data/.
