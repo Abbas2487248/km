@@ -16,6 +16,15 @@ ROOT = Path(__file__).resolve().parents[1]
 SOURCE_DIR = ROOT / "data"
 OUTPUT_DIR = ROOT / "wheat_only_preview" / "data"
 
+# These tables describe animals, fishing, mining, placeholders, or building
+# metadata rather than products made by production machines.
+NON_MACHINE_FILES = {
+    "animal_goods.csv", "countyfair_dummy_goods.csv", "fishing_goods.csv",
+    "gatherer_nest_goods.csv", "mine_goods.csv", "mollusc_goods.csv",
+    "placeholder_goods.csv", "production_buildings_goods.csv",
+    "squirrel_nest_goods.csv",
+}
+
 
 def transform_file(source: Path, destination: Path) -> tuple[int, int, str]:
     with source.open("r", encoding="utf-8-sig", newline="") as handle:
@@ -102,6 +111,10 @@ def main() -> None:
     ignored_files = 0
 
     for source in sorted(SOURCE_DIR.glob("*_goods.csv")):
+        if source.name in NON_MACHINE_FILES:
+            ignored_files += 1
+            print(f"{source.name}: skipped (not a production-machine recipe table)")
+            continue
         destination = OUTPUT_DIR / source.name
         changed, skipped, status = transform_file(source, destination)
         if status == "processed":
