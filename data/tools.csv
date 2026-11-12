@@ -1,0 +1,8 @@
+Name,ToolIconFileName,ToolIconExportName,UnlockLevel,TID,DumbValue,DiamondPrice,DescriptionTID,ExpCollect,CashPrices,CashMinLevels,AllowCashPurchase,GainSpawnSound,GainBankedSound
+String,String,String,int,String,int,int,string,int,String,String,boolean,String,String
+Dynamite,sc/icons.sc,tool_dynamite,5,TID_DYNAMITE,7,3,TID_DYNAMITE_DESCRIPTION,25,500;1000;2000,0;16;35,FALSE,,CropIntoSilo
+Demolition Charge,sc/icons.sc,tool_demo_charge,5,TID_DEMOLITION_CHARGE,20,7,TID_DEMOLITION_CHARGE_DESCRIPTION,25,500;1000;2000,0;16;35,FALSE,,CropIntoSilo
+Axe,sc/icons.sc,tool_axe,5,TID_AXE,10,4,TID_AXE_DESCRIPTION,25,50;500;1000;2000;3000,0;15;30;50;75,TRUE,,CropIntoSilo
+Saw,sc/icons.sc,tool_saw,5,TID_SAW,15,5,TID_SAW_DESCRIPTION,25,50;500;1000;2000;3000,0;15;30;50;75,TRUE,,CropIntoSilo
+Shovel,sc/icons.sc,tool_shovel,5,TID_SHOVEL,30,10,TID_SHOVEL_DESCRIPTION,25,500;1000;2000,0;16;35,FALSE,,CropIntoSilo
+Pickaxe,sc/icons.sc,tool_pickaxe,34,TID_TOOL_PICKAXE,35,12,TID_TOOL_PICKAXE_DESC,25,500;1000;2000,0;16;35,FALSE,,CropIntoSilo

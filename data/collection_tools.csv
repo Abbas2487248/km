@@ -1,0 +1,18 @@
+Name,ToolIconFileName,ToolIconExportName,UnlockLevel,TID,DumbValue,DiamondPrice,DescriptionTID,ReputationUnlockLevel,DonationExp,Category,GainSpawnSound,GainBankedSound
+String,String,String,int,String,int,int,String,int,int,String,String,String
+Plank,sc/icons.sc,collection_plank,1,TID_PLANK,75,8,TID_PLANK_DESCRIPTION,,8,Barn,,CropIntoSilo
+Nail,sc/icons.sc,collection_nail,1,TID_NAIL,75,8,TID_NAIL_DESCRIPTION,,8,Silo,,CropIntoSilo
+Bolt,sc/icons.sc,collection_bolt,1,TID_BOLT,75,8,TID_BOLT_DESCRIPTION,,8,Barn,,CropIntoSilo
+Screw,sc/icons.sc,collection_screw,1,TID_SCREW,75,8,TID_SCREW_DESCRIPTION,,8,Silo,,CropIntoSilo
+Duct Tape,sc/icons.sc,collection_duct_tape,1,TID_DUCT_TAPE,75,8,TID_DUCT_TAPE_DESCRIPTION,,8,Barn,,CropIntoSilo
+Wood Panel,sc/icons.sc,collection_wood_panel,1,TID_WOOD_PANEL,75,8,TID_WOOD_PANEL_DESCRIPTION,,8,Silo,,CropIntoSilo
+Land Deed,sc/icons.sc,collection_land_deed,22,TID_LAND_DEED,112,12,TID_LAND_DEED_DESCRIPTION,,12,LandExpansion,,CropIntoSilo
+Mallet,sc/icons.sc,collection_mallet,22,TID_MALLET,112,12,TID_MALLET_DESCRIPTION,,12,LandExpansion,,CropIntoSilo
+Marker Stake,sc/icons.sc,collection_marker_stake,22,TID_STAKE,112,12,TID_STAKE_DESCRIPTION,,12,LandExpansion,,CropIntoSilo
+Hammer,sc/icons.sc,icon_collection_hammer,34,TID_TRAIN_ITEM_HAMMER,95,10,TID_TRAIN_ITEM_HAMMER_DESC,2,10,Town,,CropIntoSilo
+Hand Drill,sc/icons.sc,icon_collection_hand_drill,34,TID_TRAIN_ITEM_HAND_DRILL,95,10,TID_TRAIN_ITEM_HAND_DRILL_DESC,2,10,Town,,CropIntoSilo
+Paint Bucket,sc/icons.sc,icon_collection_paint_bucket,34,TID_TRAIN_ITEM_PAINT_BUCKET,95,10,TID_TRAIN_ITEM_PAINT_BUCKET_DESC,2,10,Town,,CropIntoSilo
+Stone Block,sc/icons.sc,icon_collection_stones,34,TID_TRAIN_ITEM_STONES,95,10,TID_TRAIN_ITEM_STONES_DESC,2,10,Town,,CropIntoSilo
+Brick,sc/icons.sc,icon_collection_bricks,34,TID_TRAIN_ITEM_BRICKS,95,10,TID_TRAIN_ITEM_BRICKS_DESC,2,10,Town,,CropIntoSilo
+Tar Bucket,sc/icons.sc,icon_collection_tar_bucket,34,TID_TRAIN_ITEM_TAR_BUCKET,95,10,TID_TRAIN_ITEM_TAR_BUCKET_DESC,2,10,Town,,CropIntoSilo
+Map Piece,sc/icons.sc,icon_collection_map_piece,34,TID_TRAIN_ITEM_MAP_PIECE,125,14,TID_TRAIN_ITEM_MAP_PIECE_DESC,3,14,Town,,CropIntoSilo

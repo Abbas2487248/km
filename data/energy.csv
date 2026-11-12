@@ -1,0 +1,3 @@
+Name,ToolIconFileName,ToolIconExportName,ToolBigIconFileName,ToolBigIconExportName,BonusIconFileName,BonusIconExportName,BonusTID,TID,DescriptionTID,DiamondPrice,UnlockLevel,InitialAmount,SoftCap,GenerationSeconds
+String,String,String,String,String,String,String,String,String,String,int,int,int,int,int
+TruckOrderRefresh,sc/icons.sc,tool_collect_milk,sc/icons.sc,tool_collect_milk,,,TID_NONE,TID_NONE,TID_NONE,,,3,3,3600

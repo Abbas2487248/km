@@ -1,0 +1,5 @@
+Name,ScoreReadinessMul,ScoreProductionPressureMul,ScoreContentionMul
+String,int,int,int
+EASY,5,-2,-1
+MEDIUM,0,-1,0
+HARD,-3,-2,1

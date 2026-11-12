@@ -1,0 +1,11 @@
+Name,FileName,StrengthPercent
+string,string,int
+Warm,luts/warm.png,100
+Cool,luts/cool.png,100
+HighContrast,luts/high_contrast.png,100
+Sepia,luts/sepia.png,100
+Invert,luts/invert.png,100
+Halloween,luts/halloween.png,100
+GradientDusk,luts/builtin_stage_gradient_dusk.png,100
+GradientNight,luts/builtin_stage_gradient_night.png,100
+Identity,luts/identity.png,100

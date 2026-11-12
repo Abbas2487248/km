@@ -1,0 +1,20 @@
+Name,FileName,ExportName,LockedExportName,TID,UnlockAllLocations,LocationMollusc,LocationXOffset,LocationYOffset,CollectionTool,CollectionToolAmount,LimitedCollectionTool,LimitedCollectionToolAmount
+String,String,String,String,String,Boolean,String,int,int,String,int,String,int
+Bed1,sc/fishing_background.sc,mussel_bed_01,mussel_bed_01_locked,TID_MOLLUSC_BED_1,true,Mussel,1,0,Land Deed,18,Expansion Key,1
+,,,,,,Mussel,0,0,Mallet,18,,
+,,,,,,Mussel,0,1,Marker Stake,18,,
+Bed2,sc/fishing_background.sc,mussel_bed_02,mussel_bed_02_locked,TID_MOLLUSC_BED_1,true,Mussel,0,-1,Land Deed,28,Expansion Key,5
+,,,,,,Mussel,1,1,Mallet,28,,
+,,,,,,Mussel,0,3,Marker Stake,28,,
+Bed3,sc/fishing_background.sc,mussel_bed_03,mussel_bed_03_locked,TID_MOLLUSC_BED_1,true,Mussel,0,1,Land Deed,0,Expansion Key,0
+,,,,,,Mussel,2,1,Mallet,0,,
+,,,,,,Mussel,1,0,Marker Stake,0,,
+Bed4,sc/fishing_background.sc,mussel_bed_04,mussel_bed_04_locked,TID_MOLLUSC_BED_1,true,Mussel,0,1,Land Deed,52,Expansion Key,15
+,,,,,,Mussel,1,0,Mallet,52,,
+,,,,,,Mussel,-1,0,Marker Stake,52,,
+Bed5,sc/fishing_background.sc,mussel_bed_05,mussel_bed_05_locked,TID_MOLLUSC_BED_1,true,Mussel,0,0,Land Deed,65,Expansion Key,20
+,,,,,,Mussel,0,1,Mallet,65,,
+,,,,,,Mussel,0,2,Marker Stake,65,,
+Bed6,sc/fishing_background.sc,mussel_bed_06,mussel_bed_06_locked,TID_MOLLUSC_BED_1,true,Mussel,1,1,Land Deed,40,Expansion Key,10
+,,,,,,Mussel,1,2,Mallet,40,,
+,,,,,,Mussel,0,2,Marker Stake,40,,

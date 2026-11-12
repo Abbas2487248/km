@@ -1,0 +1,5 @@
+Name,Disabled,DistributionCount,EffortBucketVeryLow,EffortBucketLow,EffortBucketMedium,EffortBucketHigh,EffortBucketVeryHigh,BaseFriendshipPoints,MinProductCount,RequireProductionBuilding,ModifyGiftByFriendshipMultiplier,GiftCap,TutorialTitleTID,TutorialText1TID,TutorialText2TID,TutorialText3TID
+String,boolean,int,int,int,int,int,int,int,int,boolean,String,int,String,String,String,String
+Farmhand,true,3,,,,,,,,,1,,,,,
+DC,,6,10,20,35,50,100,10,2,true,1,,TID_PEOPLE_QUEST_TUTORIAL_DC_TITLE,TID_PEOPLE_QUEST_TUTORIAL_DC_TEXT_1,TID_PEOPLE_QUEST_TUTORIAL_DC_TEXT_2,TID_PEOPLE_QUEST_TUTORIAL_DC_TEXT_3
+GiftHorse,,1,,,,,,10,2,,0.4,,TID_PEOPLE_QUEST_TUTORIAL_GIFT_HORSE_TITLE,TID_PEOPLE_QUEST_TUTORIAL_GIFT_HORSE_TEXT_1,TID_PEOPLE_QUEST_TUTORIAL_GIFT_HORSE_TEXT_2,TID_PEOPLE_QUEST_TUTORIAL_GIFT_HORSE_TEXT_3

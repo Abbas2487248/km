@@ -1,0 +1,6 @@
+Name,IntValue,StringValue,BooleanValue
+String,int,String,boolean
+SideIngredientOverhead,20,,
+DiamondCost,100,,
+FruitsScale,20,,
+MiningGoodsCost,0,,

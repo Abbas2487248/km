@@ -1,0 +1,3 @@
+Name,ShopIconFileName,ShopIconExportName,ShopIconAnimScale,ShopIconClipped,UnlockLevel,TimeMin,TimeSec,Price,MaxHabitatsColumnName,FileName,ExportName,TileWidth,TileHeight,ExpToBuild,InstantComplete,TID,DescriptionTID,TapSound,TapProcessingSound,CollectSound,BuySound,RandomSounds,PendingRelease
+String,String,String,int,boolean,int,int,int,int,String,String,String,int,int,int,int,String,String,String,String,String,String,String,boolean
+Supply_Shed,,,100,,5,,10,100,,sc/buildings_new.sc,supply_shed_01,2,2,3,1,TID_SUPPLY_SHED,TID_SUPPLY_SHED_DESCRIPTION,TapDecorationGeneric,,Collect,Buy,,TRUE

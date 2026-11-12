@@ -1,0 +1,10 @@
+Name,Completions,MinStayTimeMinutes,MaxStayTimeMinutes,MinReturnTimeMinutes,MaxReturnTimeMinutes
+String,int,int,int,int,int
+timing_0,0,0,0,0,0
+timing_1,1,0,0,0,0
+timing_2,2,0,0,0,0
+timing_3,3,0,0,0,0
+timing_4,4,0,0,0,0
+timing_5,5,0,0,0,0
+timing_6,6,0,0,0,0
+timing_7,7,0,0,0,0

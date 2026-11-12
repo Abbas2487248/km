@@ -1,0 +1,17 @@
+Name,IntValue,StringValue,BooleanValue
+String,int,String,boolean
+CandidateCount,5,,
+SurplusCount,2,,
+MaxGoodsHistory,50,,
+MaxBuildingsHistory,20,,
+InventoryWeightCap,10,,
+MaxPenaltyForBuildingHistory,70,,
+MaxPenaltyForGoodsHistory,70,,
+OrderSetCount,5,,
+ReferenceWait,60,,
+EasyCount,3,,
+MediumCount,3,,
+StorageCapMultiplier,10,,
+CropDivider,10,,
+FruitTreeDivider,6,,
+AnimalProductDivider,5,,

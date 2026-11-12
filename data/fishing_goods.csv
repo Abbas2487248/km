@@ -1,0 +1,6 @@
+Name,ToolIconFileName,ToolIconExportName,TID,OrderPrice,OrderExp,ExpCollect,InstantComplete,DumbValue,OrderValue,BoatOrderValue,UnlockLevel,DescriptionTID,Difficulty,PendingRelease,OrderValueV2,GainSpawnSound,GainBankedSound
+String,String,String,String,int,int,int,int,int,int,int,int,string,int,Boolean,int,String,String
+Fish Meat,sc/icons.sc,icon_fishfilet,TID_FISHMEAT,21,16,11,11,15,11,11,27,TID_FISHMEAT_DESCRIPTION,22,,11,,CropIntoSilo
+Lobster Meat,sc/icons.sc,icon_lobster_meat,TID_LOBSTER_MEAT,104,100,24,8,56,21,29,44,TID_LOBSTER_MEAT_DESCRIPTION,29,,21,,CropIntoSilo
+Duck Down,sc/icons.sc,icon_duck_feathers,TID_DUCK_DOWN,72,69,17,6,39,15,21,50,TID_DUCK_DOWN_DESCRIPTION,21,,15,,CropIntoSilo
+Mussel Meat,sc/icons.sc,icon_mussel_meat,TID_MUSSEL_MEAT,11,8,6,2,8,6,6,27,TID_MUSSEL_MEAT_DESCRIPTION,11,,11,MusselExtractMeatBegin,MusselExtractMeatBank

@@ -1,0 +1,3 @@
+Name,ExportName,GrowingExportName,FileName,GrowTime,Good,CollectIconFileName,CollectIconExportName,TID,PendingRelease,TileWidth,TileHeight
+String,String,String,String,int,String,String,String,String,Boolean,int,int
+Mussel,mussel_stage_01,mussel_stage_02,sc/fishes.sc,360,Mussel,sc/fishing_icons.sc,icon_tool_mussel_harvest,TID_MUSSEL,,1,1

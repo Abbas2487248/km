@@ -1,0 +1,4 @@
+Name,FileName,ExportName,TileWidth,TileHeight,CollectSound,TapSound
+String,String,String,int,int,String,String
+AngusDock,sc/fishing_area_buildings_and_decos.sc,angus_dock,3,2,Collect,MenuBleep
+AngusPearlBucket,sc/fishing_area_buildings_and_decos.sc,pearl_bucket,1,1,Collect,MenuBleep
